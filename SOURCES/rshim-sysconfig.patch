@@ -1,0 +1,24 @@
+From 37b1523b39d7fb0d58d57b8f58c943055b1e83e2 Mon Sep 17 00:00:00 2001
+From: Jeffrey Bastian <jbastian@redhat.com>
+Date: Tue, 6 Apr 2021 14:24:16 -0500
+Subject: [PATCH] add rshim sysconfig file for setting
+
+---
+ rshim.service | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/rshim.service b/rshim.service
+index 84f0e2f49eba..7539133f869c 100644
+--- a/rshim.service
++++ b/rshim.service
+@@ -9,6 +9,7 @@ After=network.target
+ [Service]
+ Restart=always
+ Type=forking
++EnvironmentFile=-/etc/sysconfig/rshim
+ ExecStart=-/usr/sbin/rshim $OPTIONS
+ KillMode=control-group
+ 
+--
+2.26.3
+
