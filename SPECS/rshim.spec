@@ -3,14 +3,14 @@
 #
 
 Name: rshim
-Version: 2.0.5
-Release: 2%{?dist}
+Version: 2.0.8
+Release: 1%{?dist}
 Summary: User-space driver for Mellanox BlueField SoC
 
 License: GPLv2
 
 URL: https://github.com/mellanox/rshim-user-space
-Source0: https://github.com/Mellanox/rshim-user-space/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0: rshim-sysconfig.patch
 
 BuildRequires: gcc, autoconf, automake, make
@@ -27,7 +27,7 @@ interface. It provides ways to push boot stream, debug the target or login
 via the virtual console or network interface.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n rshim-user-space-%{name}-%{version}
 
 %build
 ./bootstrap.sh
@@ -57,13 +57,18 @@ EOF
 %doc README.md
 %config(noreplace) %{_sysconfdir}/rshim.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/rshim
-%{_unitdir}/rshim.service
 %{_sbindir}/rshim
 %{_sbindir}/bfb-install
+%{_unitdir}/rshim.service
 %{_mandir}/man8/rshim.8.gz
 %{_mandir}/man8/bfb-install.8.gz
 
 %changelog
+* Mon May 22 2023 Dean Nelson <dnelson@redhat.com> - 2.0.8-1
+- Update user-space rshim driver source to version 2.0.8
+- Modify rshim.spec accordingly
+- Resolves: rhbz#2196626
+
 * Tue Aug 10 2021 Mohan Boddu <mboddu@redhat.com> - 2.0.5-2
 - Rebuilt for IMA sigs, glibc 2.34, aarch64 flags
   Related: rhbz#1991688
